@@ -49,21 +49,33 @@ void addTail(LinkedList* list, void* data) {
   list->tail = node;
 }
 
+// 删除特定节点
 void delete(LinkedList* list, Node* node) {
   Node* curr = list->head;
-  if(curr == NULL) {
-    return NULL;
+  if(curr == NULL || curr->next == NULL) {
+    list->head = list->tail = NULL;
   }
-  while(curr != NULL) {
-    if (curr->data == node->data) {
-      
+  if(curr == node) {
+    list->head = curr->next;
+  }
+  while(curr->next != NULL) {
+    if (curr->next == node) {
+      curr->next = node->next;
+      break;
     }
     curr = curr->next;
   }
 }
 
 Node* getNode(LinkedList* list, void* data) {
-  
+  Node* curr = list->head;
+  while(curr != NULL) {
+    if(*(curr->data) == *data) {
+      return curr;
+    }
+    curr = curr->next;
+  }
+  return NULL;
 }
 
 void printLinkedList (LinkedList* list, PRINT print) {
@@ -84,15 +96,15 @@ int main() {
   LinkedList linkedlist;
   initList(&linkedlist);
   int arr[5] = {1,2,3,4,5};
-  /* printf("size of int: %lu\n", sizeof(int)); */
-  /* printf("%p\n", arr); */
-  /* printf("%d\n", *arr); */
-  /* printf("%p\n", arr+4); */
-  /* printf("%d\n", *(arr+4)); */
   addHead(&linkedlist, arr);
   addHead(&linkedlist, arr+1);
   addTail(&linkedlist, arr+2);
   addHead(&linkedlist, arr+3);
   addTail(&linkedlist, arr+4);
+  printLinkedList(&linkedlist, (PRINT)printIntArray);
+  int data = 3;
+  Node* node = getNode(&linkedlist, &data);
+  delete(&linkedlist, node);
+  printf("\n");
   printLinkedList(&linkedlist, (PRINT)printIntArray);
 }
