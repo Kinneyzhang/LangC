@@ -124,5 +124,4 @@ int main() {
   delete(&linkedlist, node2);
   printf("\nAfter delete a node: ");
   printLinkedList(&linkedlist, (PRINT)printIntArray);
-
 }
