@@ -17,6 +17,7 @@ typedef struct _linklist {
 
 // 定义函数指针
 typedef void(*PRINT)(void*);
+typedef int(*COMPARE)(void*, void*);
 
 void initList(LinkedList* list) {
   list->head = NULL;
@@ -67,13 +68,13 @@ void delete(LinkedList* list, Node* node) {
   }
 }
 
-Node* getNode(LinkedList* list, void* data) {
-  Node* curr = list->head;
-  while(curr != NULL) {
-    if(*(curr->data) == *data) {
-      return curr;
+Node* getNode(LinkedList* list, COMPARE compare, void* data) {
+  Node* node = list->head;
+  while(node != NULL) {
+    if(compare(node->data, data) == 0) {
+      return node;
     }
-    curr = curr->next;
+    node = node->next;
   }
   return NULL;
 }
@@ -90,7 +91,14 @@ void printLinkedList (LinkedList* list, PRINT print) {
 /* ------------------------------- */
 
 void printIntArray (void* data) {
-  printf("%d\n", *(int*)data);
+  printf("%d ", *(int*)data);
+}
+
+int compareIntVal (void* data1, void* data2) {
+  if (*((int*)data1) == *((int*)data2)) {
+    return 0;
+  }
+  return -1;
 }
 
 int main() {
@@ -102,10 +110,19 @@ int main() {
   addTail(&linkedlist, arr+2);
   addHead(&linkedlist, arr+3);
   addTail(&linkedlist, arr+4);
+  printf("The original linkedlist:");
   printLinkedList(&linkedlist, (PRINT)printIntArray);
-  int data = 3;
-  Node* node = getNode(&linkedlist, &data);
-  delete(&linkedlist, node);
-  printf("\n");
+  
+  int data1 = 3;
+  Node* node1 = getNode(&linkedlist, (COMPARE)compareIntVal , &data1);
+  delete(&linkedlist, node1);
+  printf("\nAfter delete a node: ");
   printLinkedList(&linkedlist, (PRINT)printIntArray);
+
+  int data2 = 4;
+  Node* node2 = getNode(&linkedlist, (COMPARE)compareIntVal , &data2);
+  delete(&linkedlist, node2);
+  printf("\nAfter delete a node: ");
+  printLinkedList(&linkedlist, (PRINT)printIntArray);
+
 }
