@@ -90,6 +90,8 @@ void printLinkedList (LinkedList* list, PRINT print) {
 
 // Extra Functions
 void deleteData(LinkedList* list, COMPARE compare, void* data) {
+  /** Delete the specific node with data DATA from linkedlist LIST,
+      using the COMPARE function. */
   Node* node = getNode(list, compare, data);
   if (node != NULL) {
     delete(list, node);
