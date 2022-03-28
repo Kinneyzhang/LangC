@@ -300,6 +300,12 @@ int main() {
   printf("\nInsert 6 before 5: ");
   printLinkedList(&linkedlist, (PRINT)printInt);
 
+  // 在指定位置插入节点
+  int e = 3;
+  insertByNth(&linkedlist, 4, &e); // FIXME: 第一个位置插入有bug，考虑如何在最后添加。
+  printf("\nInsert 3 at pos 4: ");
+  printLinkedList(&linkedlist, (PRINT)printInt);
+
   println();
   
   // 删除指定值的节点
