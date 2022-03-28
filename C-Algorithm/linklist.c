@@ -22,6 +22,7 @@ typedef int(*COMPARE)(void*, void*);
 void* compareFunc;
 
 /*********************************************************************************/
+
 void initList(LinkedList* list);
 
 void addHead(LinkedList* list, void* data);
@@ -51,6 +52,7 @@ void updateByData(LinkedList* list, COMPARE compare, void* data, void* newData);
 void updateByNth(LinkedList* list, int nth, void* data);
 
 void printLinkedList(LinkedList* list, PRINT print); // main
+
 /*********************************************************************************/
 
 void initList(LinkedList* list) {
