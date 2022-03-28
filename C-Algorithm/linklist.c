@@ -50,33 +50,34 @@ void addTail(LinkedList* list, void* data) {
   list->tail = node;
 }
 
-// 删除特定节点
-void delete(LinkedList* list, Node* node) {
+Node* getNode(LinkedList* list, COMPARE compare, void* data) {
   Node* curr = list->head;
-  if(curr == NULL || curr->next == NULL) {
-    list->head = list->tail = NULL;
-  }
-  if(curr == node) {
-    list->head = curr->next;
-  }
-  while(curr->next != NULL) {
-    if (curr->next == node) {
-      curr->next = node->next;
-      break;
+  while(curr != NULL) {
+    if(compare(curr->data, data) == 0) {
+      return curr;
     }
     curr = curr->next;
   }
+  return NULL;
 }
 
-Node* getNode(LinkedList* list, COMPARE compare, void* data) {
-  Node* node = list->head;
-  while(node != NULL) {
-    if(compare(node->data, data) == 0) {
-      return node;
+void delete(LinkedList* list, Node* node) {
+  Node* curr = list->head;
+  if (curr == node) {
+    if (curr->next == NULL) {
+      list->head = list->tail = NULL;
+    } else {
+      list->head = curr->next;
     }
-    node = node->next;
+  } else {
+    while (curr != NULL && curr->next != node) {
+      curr = curr->next;
+    }
+    if (curr != NULL) {
+      curr->next = node->next;
+    }
   }
-  return NULL;
+  free(node);
 }
 
 void printLinkedList (LinkedList* list, PRINT print) {
@@ -87,9 +88,38 @@ void printLinkedList (LinkedList* list, PRINT print) {
   }
 }
 
+// Extra Functions
+void deleteData(LinkedList* list, COMPARE compare, void* data) {
+  Node* node = getNode(list, compare, data);
+  if (node != NULL) {
+    delete(list, node);
+  } 
+}
+
+Node* getNthNode(LinkedList* list, int nth) {
+  /** Return node at the NTH position of linkedlist LIST. */
+  int pos = 0;
+  Node* curr = list->head;
+  while (curr != NULL) {
+    pos += 1;
+    if (nth == pos) {
+      return curr;
+    }
+    curr = curr->next;
+  }
+  return NULL;
+}
+
+void deleteNthNode(LinkedList* list, int nth) {
+  Node* node = getNthNode(list, nth);
+  if (node != NULL) {
+    delete(list, node);
+  }
+}
 
 /* ------------------------------- */
 
+// Specific Functions
 void printIntArray (void* data) {
   printf("%d ", *(int*)data);
 }
@@ -110,18 +140,26 @@ int main() {
   addTail(&linkedlist, arr+2);
   addHead(&linkedlist, arr+3);
   addTail(&linkedlist, arr+4);
-  printf("The original linkedlist:");
-  printLinkedList(&linkedlist, (PRINT)printIntArray);
-  
-  int data1 = 3;
-  Node* node1 = getNode(&linkedlist, (COMPARE)compareIntVal , &data1);
-  delete(&linkedlist, node1);
-  printf("\nAfter delete a node: ");
+  printf("Original list: ");
   printLinkedList(&linkedlist, (PRINT)printIntArray);
 
-  int data2 = 4;
-  Node* node2 = getNode(&linkedlist, (COMPARE)compareIntVal , &data2);
-  delete(&linkedlist, node2);
-  printf("\nAfter delete a node: ");
+  // 获取特定位置的节点
+  for (int i=0; i<5; ++i) {
+    Node* nthNode = getNthNode(&linkedlist, i+1);
+    printf("\nThe nth %d data: %d", i+1, *(int*)(nthNode->data));
+    //free(nthNode);
+  }
+
+  // 删除指定位置的节点
+  deleteNthNode(&linkedlist, 4);
+  printf("\nDelete 4th node: ");
   printLinkedList(&linkedlist, (PRINT)printIntArray);
+  
+  // 删除指定值的节点
+  int deleteArr[6] = {3,1,8,5,4,2};
+  for (int i=0; i<6; ++i) {
+    deleteData(&linkedlist, (COMPARE)compareIntVal, deleteArr+i);
+    printf("\nDelete data '%d': ", deleteArr[i]);
+    printLinkedList(&linkedlist, (PRINT)printIntArray);
+  }
 }
