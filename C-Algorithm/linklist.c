@@ -19,8 +19,6 @@ typedef struct _linklist {
 typedef void(*PRINT)(void*);
 typedef int(*COMPARE)(void*, void*);
 
-void* compareFunc;
-
 /*********************************************************************************/
 
 void initList(LinkedList* list);
@@ -134,17 +132,25 @@ void insertNode(LinkedList* list, Node* node, void* newData, int flag) {
     if (flag == 0) {
       // 在节点前面插入
       Node* curr = list->head;
-      while (curr != NULL && curr->next != node) {
-        curr = curr->next;
-      }
-      if (curr != NULL) {
-        newNode->next = node;
-        curr->next = newNode;
+      newNode->next = node;
+      if (node == curr) {
+        list->head = newNode;
+      } else {
+        while (curr != NULL && curr->next != node) {
+          curr = curr->next;
+        }
+        if (curr != NULL) {
+          curr->next = newNode; 
+        }
       }
     }
     if (flag == 1) {
       // 在节点后面插入
-      newNode->next = node->next;
+      if (node == list->tail) {
+        list->tail = newNode;
+      } else {
+        newNode->next = node->next;
+      }
       node->next = newNode;
     }
   }
@@ -252,15 +258,24 @@ void printLinkedList(LinkedList* list, PRINT print) {
 /* ------------------------------- */
 
 // Specific Functions
-void println() {
-  printf("\n");
+void println(int n) {
+  for(int i=0; i<n; ++i) {
+    printf("\n");
+  } 
 }
+
 void printInt(int* data) {
   printf("%d ", *data);
 }
 
 int compareInt(int* data1, int* data2) {
   return *data1 - *data2;
+}
+
+void prettyPrint(char str[], LinkedList* list, int n) {
+  printf("%s", str);
+  printLinkedList(list, (PRINT)printInt);
+  println(n);
 }
 
 int main() {
@@ -272,10 +287,7 @@ int main() {
   addTail(&linkedlist, arr+2);
   addHead(&linkedlist, arr+3);
   addTail(&linkedlist, arr+4);
-  printf("Original list: ");
-  printLinkedList(&linkedlist, (PRINT)printInt);
-  
-  println();
+  prettyPrint("Original list: ", &linkedlist, 1);
   
   // 获取特定位置的节点
   for (int i=0; i<length(&linkedlist); ++i) {
@@ -283,40 +295,53 @@ int main() {
     printf("\nThe nth %d data: %d", i+1, *(int*)(nthNode->data));
   }
   
-  println();
+  println(2);
   
   // 删除指定位置的节点
   deleteByNth(&linkedlist, 4);
-  printf("\nDelete 4th node: ");
-  printLinkedList(&linkedlist, (PRINT)printInt);
-  
-  println();
+  prettyPrint("Delete the 4th node: ", &linkedlist, 2);
   
   int a = 2; int b = 8; // 在2后面插入8
   insertByData(&linkedlist, (COMPARE)compareInt, &a, &b, 1);
-  printf("\nInsert 8 after 2: ");
-  printLinkedList(&linkedlist, (PRINT)printInt);
+  prettyPrint("Insert 8 after 2: ", &linkedlist, 1);
   
   int c = 5; int d = 6; // 在5前面插入6
   insertByData(&linkedlist, (COMPARE)compareInt, &c, &d, 0);
-  printf("\nInsert 6 before 5: ");
-  printLinkedList(&linkedlist, (PRINT)printInt);
+  prettyPrint("Insert 6 before 5: ", &linkedlist, 1);
 
   // 在指定位置插入节点
   int e = 3;
-  insertByNth(&linkedlist, 4, &e); // FIXME: 第一个位置插入有bug，考虑如何在最后添加。
-  printf("\nInsert 3 at pos 4: ");
-  printLinkedList(&linkedlist, (PRINT)printInt);
+  insertByNth(&linkedlist, 4, &e);
+  prettyPrint("Insert 3 at pos 4: ", &linkedlist, 2);
 
-  println();
+  // 更新节点
+  int f = 6; int g = 9; int h = 7;
+  updateByData(&linkedlist, (COMPARE)compareInt, &f, &g);
+  prettyPrint("Update 6 to 9: ", &linkedlist, 1);
+  
+  updateByNth(&linkedlist, 1, &h);
+  prettyPrint("Update the 1st to 7: ", &linkedlist, 2);
   
   // 删除指定值的节点
   int deleteArr[6] = {3,1,8,5,4,2};
-  for (int i=0; i<6; ++i) {
+  for (int i=0; i<3; ++i) {
     deleteByData(&linkedlist, (COMPARE)compareInt, deleteArr+i);
-    printf("\nDelete data '%d': ", deleteArr[i]);
+    printf("Delete data '%d': ", deleteArr[i]);
     printLinkedList(&linkedlist, (PRINT)printInt);
+    println(1);
   }
+
+  println(1);
+  
+  // 删除指定位置的节点
+  deleteByNth(&linkedlist, 2);
+  prettyPrint("Delete the 2nd node: ", &linkedlist, 1);
+  
+  deleteByNth(&linkedlist, 3);
+  prettyPrint("Delete the 3rd node: ", &linkedlist, 1);
+  
+  deleteByNth(&linkedlist, 1);
+  prettyPrint("Delete the 1st node: ", &linkedlist, 1);
 }
 
 // FIXME: 是否可以将函数指针保存在全局变量里面，这样函数指针可以不用在参数中传递而直接使用。
