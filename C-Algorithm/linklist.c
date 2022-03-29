@@ -26,8 +26,6 @@ void initList(LinkedList* list);
 void addHead(LinkedList* list, void* data);
 void addTail(LinkedList* list, void* data);
 
-LinkedList* buildLinkedList(LinkedList* list, void* arr[]);
-
 Node* getNode(LinkedList* list, COMPARE compare, void* data); // main
 Node* getNthNode(LinkedList* list, int nth); // main
 
