@@ -10,7 +10,7 @@ typedef struct _node {
   struct _node* next;
 } Node;
 
-typedef struct _linklist {
+typedef struct _linkedlist {
   Node* head;
   Node* tail;
 } LinkedList;
@@ -90,10 +90,6 @@ void addTail(LinkedList* list, void* data) {
     list->tail->next = node;
   }
   list->tail = node;
-}
-
-LinkedList* buildLinkedList(LinkedList* list, void* arr[]) {
-  
 }
 
 Node* getNode(LinkedList* list, COMPARE compare, void* data) {
