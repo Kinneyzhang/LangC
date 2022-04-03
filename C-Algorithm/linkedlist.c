@@ -43,7 +43,7 @@ void deleteNode(LinkedList* list, Node* node); // main
 void deleteByData(LinkedList* list, COMPARE compare, void* data);
 void deleteByNth(LinkedList* list, int nth);
 
-void updateNode(LinkedList* list, Node* node, void* data); // main
+void updateNode(Node* node, void* data); // main
 void updateByData(LinkedList* list, COMPARE compare, void* data, void* newData);
 void updateByNth(LinkedList* list, int nth, void* data);
 
@@ -222,7 +222,7 @@ void deleteByNth(LinkedList* list, int nth) {
   deleteNode(list, node);
 }
 
-void updateNode(LinkedList* list, Node* node, void* data) {
+void updateNode(Node* node, void* data) {
   /** 修改节点的值 */
   node->data = data;
 }
@@ -230,13 +230,13 @@ void updateNode(LinkedList* list, Node* node, void* data) {
 void updateByData(LinkedList* list, COMPARE compare, void* data, void* newData) {
   /** 修改特定data节点的值 */
   Node* node = getNode(list, compare, data);
-  node->data = newData;
+  updateNode(node, newData);
 }
 
 void updateByNth(LinkedList* list, int nth, void* data) {
   /** 修改特定位置节点的值 */
   Node* node = getNthNode(list, nth);
-  node->data = data;
+  updateNode(node, newData);
 }
 
 void printLinkedList(LinkedList* list, PRINT print) {
