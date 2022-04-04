@@ -4,54 +4,7 @@
 
 #include<stdlib.h>
 #include<stdio.h>
-
-typedef struct _node {
-  void* data;
-  struct _node* next;
-} Node;
-
-typedef struct _linkedlist {
-  Node* head;
-  Node* tail;
-} LinkedList;
-
-/** 定义函数指针 */
-typedef void(*PRINT)(void*);
-typedef int(*COMPARE)(void*, void*);
-
-/*********************************************************************************/
-
-void initList(LinkedList* list);
-
-void addHead(LinkedList* list, void* data);
-void addTail(LinkedList* list, void* data);
-
-//LinkedList* buildLinkedList(LinkedList* list, void* arr[]);
-
-Node* getNode(LinkedList* list, COMPARE compare, void* data); // main
-Node* getNthNode(LinkedList* list, int nth); // main
-
-void insertNode(LinkedList* list, Node* node, void* newData, int flag); // main
-void insertNodeBefore(LinkedList* list, Node* node, void* data);
-void insertNodeAfter(LinkedList* list, Node* node, void* data);
-
-void insertByData(LinkedList* list, COMPARE compare, void* data, void* newData, int flag);
-void insertByDataBefore(LinkedList* list, COMPARE compare, void* data, void* newData);
-void insertByDataAfter(LinkedList* list, COMPARE compare, void* data, void* newData);
-
-void insertByNth(LinkedList* list, int nth, void* data);
-
-void deleteNode(LinkedList* list, Node* node); // main
-void deleteByData(LinkedList* list, COMPARE compare, void* data);
-void deleteByNth(LinkedList* list, int nth);
-
-void updateNode(Node* node, void* data); // main
-void updateByData(LinkedList* list, COMPARE compare, void* data, void* newData);
-void updateByNth(LinkedList* list, int nth, void* newData);
-
-void printLinkedList(LinkedList* list, PRINT print); // main
-
-/*********************************************************************************/
+#include "linkedlist.h"
 
 void initList(LinkedList* list) {
   list->head = NULL;
@@ -94,13 +47,20 @@ void addTail(LinkedList* list, void* data) {
   list->tail = node;
 }
 
-LinkedList* buildLinkedList(LinkedList* list, int* arr[]) {
-    initList(list);
-    int len = (int)sizeof(arr)/(int)sizeof(arr[0]);
-    for (int i=0; i<len; i++) {
-        addTail(list, arr[i]);
-    }
+void buildLinkedList(LinkedList* list, void* arr[], int n) {
+  initList(list);
+  for (int i=0; i<n; i++) {
+    addTail(list, arr[i]);
+  }
 }
+
+/* void buildCircularLinkedList(LinkedList* list, void* arr[], int n) { */
+/*   initList(list); */
+/*   for (int i=0; i<n; i++) { */
+/*     addTail(list, arr[i]); */
+/*   } */
+/*   list->tail->next = list->head; */
+/* } */
 
 Node* getNode(LinkedList* list, COMPARE compare, void* data) {
   /** 根据值获取节点 */
@@ -284,15 +244,9 @@ void prettyPrint(char str[], LinkedList* list, int n) {
 
 int main() {
   LinkedList linkedlist;
-//  initList(&linkedlist);
   int x1 = 4; int x2 = 2; int x3 = 1; int x4 = 3; int x5 = 5;
   int* arr[5] = {&x1, &x2, &x3, &x4, &x5};
-  /* addHead(&linkedlist, arr); */
-  /* addHead(&linkedlist, arr+1); */
-  /* addTail(&linkedlist, arr+2); */
-  /* addHead(&linkedlist, arr+3); */
-  /* addTail(&linkedlist, arr+4); */
-  buildLinkedList(&linkedlist, (int**)arr);
+  buildLinkedList(&linkedlist, (void**)arr, 5);
   prettyPrint("Original list: ", &linkedlist, 1);
   
   // 获取特定位置的节点
