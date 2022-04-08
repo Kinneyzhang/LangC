@@ -1,0 +1,1 @@
+Build linkedlist: *=gcc linkedlist-main.c linkedlist.c=*
