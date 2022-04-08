@@ -2,8 +2,6 @@
 // 链表涉及的操作：
 // 创建链表、遍历链表、插入一个节点、删除一个节点
 
-#include<stdlib.h>
-#include<stdio.h>
 #include "linkedlist.h"
 
 void initList(LinkedList* list) {
@@ -12,13 +10,17 @@ void initList(LinkedList* list) {
 }
 
 int length(LinkedList* list) {
-  int count = 0;
+  int len = 0;
   Node* curr = list->head;
   while(curr != NULL) {
-    count += 1;
+    len += 1;
     curr = curr->next;
   }
-  return count;
+  return len;
+}
+
+bool isEmpty(LinkedList* list) {
+  return !list->head;
 }
 
 void addHead(LinkedList* list, void* data) {
@@ -158,8 +160,17 @@ void insertByNth(LinkedList* list, int nth, void* data) {
   }
 }
 
-void deleteNode(LinkedList* list, Node* node) {
+// 再理理逻辑！
+void* deleteNode(LinkedList* list, Node* node) {
   /** 删除节点 */
+  /**
+   * 几种特殊情况:
+   * 1. 只有1个节点, 且要删除的正好是这个节点 => 头尾指针要变
+   * 2. 多个节点, 删除头节点 => 头指针要变
+   ******** 1,2 可以合并 因为 删除头节点的特殊性:不需要知道前驱节点. ********
+   * 3. 多个节点, 删除尾节点 => 尾指针要变, 尾节点的前驱的next指针赋空.
+   * 4. 多个节点, 删除中间节点 => 头尾指针不变, 删除的节点的前驱的next指针变化.
+   **/
   if (node != NULL) {
     Node* curr = list->head;
     if (curr == node) {
@@ -173,11 +184,17 @@ void deleteNode(LinkedList* list, Node* node) {
         curr = curr->next;
       }
       if (curr != NULL) {
+        if (node == list->tail) {
+          list->tail = curr;
+        }
         curr->next = node->next;
       }
     }
+    void* data = node->data;
     free(node);
+    return data;
   }
+  return NULL;
 }
 
 void deleteByData(LinkedList* list, COMPARE compare, void* data) {
@@ -186,10 +203,10 @@ void deleteByData(LinkedList* list, COMPARE compare, void* data) {
   deleteNode(list, node);
 }
 
-void deleteByNth(LinkedList* list, int nth) {
+void* deleteByNth(LinkedList* list, int nth) {
   /** 根据位置删除节点 */
   Node* node = getNthNode(list, nth);
-  deleteNode(list, node);
+  return deleteNode(list, node);
 }
 
 void updateNode(Node* node, void* data) {
@@ -212,96 +229,8 @@ void updateByNth(LinkedList* list, int nth, void* newData) {
 void printLinkedList(LinkedList* list, PRINT print) {
   /** 打印链表 */
   Node *node = list->head;
-  // printf("\ncompare func address: %p\n", compareFunc);
   while (node != NULL) {
     print(node->data);
     node = node->next;
   }
 }
-
-/* ------------------------------- */
-
-// Specific Functions
-void println(int n) {
-  for(int i=0; i<n; ++i) {
-    printf("\n");
-  } 
-}
-
-void printInt(int* data) {
-  printf("%d ", *data);
-}
-
-int compareInt(int* data1, int* data2) {
-  return *data1 - *data2;
-}
-
-void prettyPrint(char str[], LinkedList* list, int n) {
-  printf("%s", str);
-  printLinkedList(list, (PRINT)printInt);
-  println(n);
-}
-
-int main() {
-  LinkedList linkedlist;
-  int x1 = 4; int x2 = 2; int x3 = 1; int x4 = 3; int x5 = 5;
-  int* arr[5] = {&x1, &x2, &x3, &x4, &x5};
-  buildLinkedList(&linkedlist, (void**)arr, 5);
-  prettyPrint("Original list: ", &linkedlist, 1);
-  
-  // 获取特定位置的节点
-  for (int i=0; i<length(&linkedlist); ++i) {
-    Node* nthNode = getNthNode(&linkedlist, i+1);
-    printf("\nThe nth %d data: %d", i+1, *(int*)(nthNode->data));
-  }
-  
-  println(2);
-  
-  // 删除指定位置的节点
-  deleteByNth(&linkedlist, 4);
-  prettyPrint("Delete the 4th node: ", &linkedlist, 2);
-  
-  int a = 2; int b = 8; // 在2后面插入8
-  insertByData(&linkedlist, (COMPARE)compareInt, &a, &b, 1);
-  prettyPrint("Insert 8 after 2: ", &linkedlist, 1);
-  
-  int c = 5; int d = 6; // 在5前面插入6
-  insertByData(&linkedlist, (COMPARE)compareInt, &c, &d, 0);
-  prettyPrint("Insert 6 before 5: ", &linkedlist, 1);
-
-  // 在指定位置插入节点
-  int e = 3;
-  insertByNth(&linkedlist, 4, &e);
-  prettyPrint("Insert 3 at pos 4: ", &linkedlist, 2);
-
-  // 更新节点
-  int f = 6; int g = 9; int h = 7;
-  updateByData(&linkedlist, (COMPARE)compareInt, &f, &g);
-  prettyPrint("Update 6 to 9: ", &linkedlist, 1);
-  
-  updateByNth(&linkedlist, 1, &h);
-  prettyPrint("Update the 1st to 7: ", &linkedlist, 2);
-  
-  // 删除指定值的节点
-  int deleteArr[6] = {3,1,8,5,4,2};
-  for (int i=0; i<3; ++i) {
-    deleteByData(&linkedlist, (COMPARE)compareInt, deleteArr+i);
-    printf("Delete data '%d': ", deleteArr[i]);
-    printLinkedList(&linkedlist, (PRINT)printInt);
-    println(1);
-  }
-
-  println(1);
-  
-  // 删除指定位置的节点
-  deleteByNth(&linkedlist, 2);
-  prettyPrint("Delete the 2nd node: ", &linkedlist, 1);
-  
-  deleteByNth(&linkedlist, 3);
-  prettyPrint("Delete the 3rd node: ", &linkedlist, 1);
-  
-  deleteByNth(&linkedlist, 1);
-  prettyPrint("Delete the 1st node: ", &linkedlist, 1);
-}
-
-// FIXME: 是否可以将函数指针保存在全局变量里面，这样函数指针可以不用在参数中传递而直接使用。
