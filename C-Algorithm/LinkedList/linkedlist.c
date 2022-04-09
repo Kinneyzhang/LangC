@@ -160,7 +160,6 @@ void insertByNth(LinkedList* list, int nth, void* data) {
   }
 }
 
-// 再理理逻辑！
 void* deleteNode(LinkedList* list, Node* node) {
   /** 删除节点 */
   /**
