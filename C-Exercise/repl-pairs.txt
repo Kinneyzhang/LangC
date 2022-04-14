@@ -1,0 +1,226 @@
+-Jan-, -一月-
+-Feb-, -二月-
+-Mar-, -三月-
+-Apr-, -四月-
+-May-, -五月-
+-Jun-, -六月-
+-Jul-, -七月-
+-Aug-, -八月-
+-Sep-, -九月-
+-Oct-, -十月-
+-Nov-, -十一月-
+-Dec-, -十二月-
+Adapt Alarm Active, Adapt报警激活
+ADAPT, 自适应
+Adapt Alarm Active %P1, Adapt报警激活 %P1
+INSTRUMENT, 仪表 
+ANY, 任意报警
+Any Alarm Value %P1, 任意报警值 %P1
+SYSTEM, 系统
+CFN, 从正常改变
+Change From Normal Value %P1, 从正常改变值 %P1
+PROCESS, 过程
+Change of State, 状态改变
+COS, 状态改变
+Communication Error, 通讯错误
+COMM, 通讯错误
+DEV, 偏差报警
+Deviation Alarm Target %P1 Actual %P2, 实际偏差报警 %P1 目标 %P2
+FAILED, 故障
+Floating Point Error, 浮点错误
+FLT, 浮点错误
+General I/O Failure, 普通 I/O 故障
+IOF, IO故障
+HIGH, 高报
+High Alarm Value %P1 Limit %P2, 高报警值 %P1 门限值 %P2
+HIHI, 高高报
+High High Alarm Value %P1 Limit %P2, 高高报警值 %P1 门限值 %P2
+Inspect Limit Active, 限值检查激活
+INSPECT, 检查
+Inspect Limit Active %P1, 限值检查激活
+LOW, 低报
+Low Alarm Value %P1 Limit %P2, 低报警值 %P1 门限值 %P2
+LOLO, 低低报
+Low Low Alarm Value %P1 Limit %P2, 低低报警值 %P1 门限值 %P2
+NEW, 新报警
+New Alarm Value %P1, 新报警值 %P1
+Open Circuit Detected, 已测出开路
+OCD, 检测到开路
+OVER, 超范围
+Over Range Value %P1, 超量程值 %P1
+RATE, 变化率
+Rate of Change Rate %P1 Limit %P2, 变化率的比例 %P1 门限值 %P2
+ERROR, 错误
+Statistical Alarm Type %P1 Value %P2, 统计报警类型 %P1 值 %P2
+Under Range, 低于量程值
+UNDER, 欠范围
+Under Range Value %P1, 低于量程值 %P1
+SIS Module Bypass Active, SIS模块旁路激活
+BYPASSED, 旁路
+Maintenance Bypass or Force Active, 维护旁路或强制激活
+SIS Change From Normal, SIS从正常改变
+CFN, 从正常改变
+Change From Normal Value %P1, 从正常改变值 %P1
+SIS Change of State, SIS改变状态
+COS, 状态改变
+Change of State, 状态改变
+SIS Communication Error, SIS通讯错误
+COMM, 通讯错误
+Communication Error, 通讯错误
+SIS Deviation Alarm, SIS偏差报警
+DEV, 偏差报警
+Deviation Alarm Actual %P1 Target %P2, 实际偏差报警 %P1 目标 %P2
+SIS Discrete Device, SIS开关设备
+FAILED, 故障
+SIS General I/O Failure, SIS普通I/O故障
+IOF, IO故障
+General I/O Failure, 普通 I/O 故障
+SIS High Alarm, SIS高报
+HIGH, 高报
+High Alarm Value %P1 Limit %P2, 高报警值 %P1 门限值 %P2
+SIS High High Alarm, SIS高高报
+HIHI, 高高报
+High High Alarm Value %P1 Limit %P2, 高高报警值 %P1 门限值 %P2
+SIS Low Alarm, SIS低报
+LOW, 低报
+Low Alarm Value %P1 Limit %P2, 低报警值 %P1 门限值 %P2
+SIS Low Low Alarm, SIS低低报
+LOLO, 低低报
+Low Low Alarm Value %P1 Limit %P2, 低低报警值 %P1 门限值 %P2
+SIS Open Circuit Detected, SIS断路检测
+OCD, 检测到开路
+Open Circuit Detected, 已测出开路
+SIS Over Range, SIS超量程
+OVER, 超范围
+Over Range Value %P1, 超量程值 %P1
+SIS Rate of Change, SIS变化率
+RATE, 变化率
+Rate of Change Rate %P1 Limit %P2, 变化率的比例 %P1 门限值 %P2
+SIS Under Range, SIS低于量程值               
+UNDER, 欠范围
+Under Range Value %P1, 低于量程值 %P1
+WARNING, 警告
+CRITICAL, 危急
+ADVISORY, 提示
+LOG, 记录
+In Service, 服务中, 
+Out Of, Service, 离线
+Not Available, 不可用
+STRING_VALUE="Disable", STRING_VALUE="停用"
+STRING_VALUE="Enable", STRING_VALUE="启用"
+STRING_VALUE="First Good", STRING_VALUE="第一个有效值"
+STRING_VALUE="Minimum", STRING_VALUE="最小"
+STRING_VALUE="Maximum", STRING_VALUE="最大"
+STRING_VALUE="Middle", STRING_VALUE="中"
+STRING_VALUE="Average", STRING_VALUE="平均"
+STRING_VALUE="Hot Backup", STRING_VALUE="热备"
+STRING_VALUE="Max", STRING_VALUE="最大" 
+STRING_VALUE="Min", STRING_VALUE="最小" 
+STRING_VALUE="Avg", STRING_VALUE="平均" 
+STRING_VALUE="High", STRING_VALUE="高"
+STRING_VALUE="Low", STRING_VALUE="低"
+STRING_VALUE="Middle", STRING_VALUE="中"
+STRING_VALUE="Use Time parameter", STRING_VALUE="使用时间参数" 
+STRING_VALUE="Use Rate parameter", STRING_VALUE="使用比率参数"
+STRING_VALUE="OUT_1 is Y11 when SP>X12", STRING_VALUE="当 SP>X12 时 OUT_1=Y11"
+STRING_VALUE="OUT_1 holds when SP>X12", STRING_VALUE="当 SP>X12 时 OUT_1 不变" 
+STRING_VALUE="START", STRING_VALUE="启动"
+STRING_VALUE="RUNNING", STRING_VALUE="正在运行"
+STRING_VALUE="STOP", STRING_VALUE="停止"
+STRING_VALUE="STOPPED", STRING_VALUE="已停止"
+STRING_VALUE="OPEN", STRING_VALUE="打开"
+STRING_VALUE="OPENED", STRING_VALUE="已打开"
+STRING_VALUE="CLOSED", STRING_VALUE="已关闭"
+STRING_VALUE="CLOSE", STRING_VALUE="关闭"
+STRING_VALUE="Clear", STRING_VALUE="清除"
+Direct, 直接
+Indirect, 间接
+Ind Sqr Root, 间接带开方
+Direct Indep, 直接独立范围
+Use Time parameter, 使用时间参数 
+Use Rate parameter, 使用比率参数
+Clear, 清除
+0 to SP - auto reset at SP, 0 到 SP - 到达 SP 时自动复位
+0 to ? - demand reset, 0 到 ? - 命令复位, 
+SP to 0 - auto reset at zero, SP 到 0 - 到达0时自动复位
+SP to 0 - demand reset, SP 到 0 - 命令复位
+0 to ? - periodic reset, 0 到 ? - 周期性重置
+0 to ? - demand reset, 0 到 ? - 命令复位
+0 to ? - periodic & demand reset, 0 到 ? - 周期性或命令重置
+OUT_1 is Y11 when SP>X12, 当 SP>X12 时 OUT_1=Y11
+OUT_1 holds when SP>X12, 当 SP>X12 时 OUT_1 不变
+Seconds, 秒 
+Minutes, 分
+Hours, 时
+Days, 天 
+Confirmed Open, 确认已打开
+Confirmed Closed, 确认已关闭
+Confirmed Running, 正在运行已确认
+Confirmed Stopped, 确认已停止
+PLM Watchdog Failed, PLM 看门狗故障
+Write To REQUEST Attribute Failed, 写入 REQUEST 属性失败
+Controller Switchover Detected, 已检测到控制器冗余切换 
+FAILED, 已失败
+Running logic, 执行逻辑
+Aborting logic, 退出逻辑
+Holding logic, 保持逻辑
+Restarting logic, 重新启动逻辑
+Stopping logic, 停止逻辑
+Failure monitor, 故障监测
+Idle, 空闲
+External, 外部
+DeltaV Batch, DeltaV 批量
+Continue, 继续
+Reset, 复位, 
+Start Sequence, 启动顺控
+Stop Sequence, 停止顺控
+Reset Sequence, 复位顺控
+Sequence Idle, 顺控空闲 
+Sequence Active, 顺控激活
+Sequence Stopped, 顺控停止
+Sequence Completed, 顺控完成 
+Sequence Blocked, 顺控堵塞
+$isel_typ:First Good, $isel_typ:第一个有效值
+$isel_typ:Minimum, $isel_typ:最小
+$isel_typ:Maximum, $isel_typ:最大
+$isel_typ:Middle, $isel_typ:中
+$isel_typ:Average, $isel_typ:平均
+$isel_typ:Hot Backup, $isel_typ:热备
+mtr2-sp:STOP, mtr2-sp:停止
+mtr2-sp:START, mtr2-sp:启动
+mtr2-pv:RUNNING, mtr2-pv:正在运行
+mtr2-pv:STOPPED, mtr2-pv:已停止
+vlvnc-sp:OPEN, vlvnc-sp:打开
+vlvnc-sp:CLOSE, vlvnc-sp:关闭
+vlvnc-pv:OPEN, vlvnc-pv:打开
+vlvnc-pv:CLOSED, vlvnc-pv:已关闭
+vlvno-sp:OPEN, vlvno-sp:打开
+vlvno-sp:CLOSE, vlvno-sp:关闭
+vlvno-pv:OPEN, vlvno-pv:打开
+vlvno-pv:CLOSED, vlvno-pv:已关闭
+phase_wdog_states:FAILED, phase_wdog_states:已失败
+phase_failures:PLM Watchdog Failed, phase_failures:PLM 看门狗故障
+phase_failures:Controller Switchover Detected, phase_failures:已检测到控制器冗余切换
+phase_failures:FAILED, phase_failures:已失败
+$sfc_commands:Start Sequence, $sfc_commands:启动顺控
+$sfc_commands:Stop Sequence, $sfc_commands:停止顺控
+$sfc_commands:Reset Sequence, $sfc_commands:复位顺控
+$sfc_states:Sequence Idle, $sfc_states:顺控空闲
+$sfc_states:Sequence Active, $sfc_states:顺控激活
+$sfc_states:Sequence Stopped, $sfc_states:顺控停止
+$sfc_states:Sequence Completed, $sfc_states:顺控完成
+$sfc_states:Sequence Blocked, $sfc_states:顺控堵塞
+$phase_state:Complete, $phase_state:已完成
+$phase_state:Aborting, $phase_state:正在退出
+$phase_state:Holding, $phase_state:正在保持
+$phase_state:Stopping, $phase_state:正在停止
+$phase_state:Restarting, $phase_state:正在重新启动
+$phase_state:Running, $phase_state:正在运行
+$phase_state:Held, $phase_state:已保留
+$phase_state:Complete, $phase_state:已完成
+$phase_state:Stopped, $phase_state:已停止
+$phase_state:Aborted, $phase_state:已退出
+$phase_state:Idle, $phase_state:空闲
+$phase_state:Starting, $phase_state:正在启动
+$phase_state:Ready, $phase_state:就绪
+$phase_state:Not Loaded, $phase_state:未载入
