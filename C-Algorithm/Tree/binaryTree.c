@@ -42,14 +42,13 @@ int compareInt (int* a, int* b) {
 }
 
 
-int main () {
-  int a = 3;
-  BtNode* root = (BtNode*)malloc(sizeof(BtNode));
-  root->data = &a;
-  root->left = NULL;
-  root->right = NULL;
+/* int main () { */
+/*   int a = 3; */
+/*   BtNode* root = (BtNode*)malloc(sizeof(BtNode)); */
+/*   root->data = &a; */
+/*   root->left = NULL; */
+/*   root->right = NULL; */
 
-  int data = 5;
-  insertNode(&root, (COMPARE)compareInt, &data);
-}
-  
+/*   int data = 5; */
+/*   insertNode(&root, (COMPARE)compareInt, &data); */
+/* } */
