@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "thread.h"
 
 int x = 0;
@@ -13,12 +12,3 @@ int main() {
     create(Thello);
   }
 }
-=======
-#include <stdio.h>
-
-int main () {
-  for(int i=0; i<10; i++) {
-    printf("char: #%c\n", "123456789ABCDEFG"[i]); 
-  }
-}
->>>>>>> 9436f879d7dc2bbe577ff47b197392fb1ab31a17
