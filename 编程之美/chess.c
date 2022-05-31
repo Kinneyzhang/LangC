@@ -10,23 +10,11 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-void printDiffChess () {
-  char* chessPos[2][9] =
-    {{"d1","e1","f1","d2","e2","f2","d3","e3","f3"}, // 帅
-     {"d8","e8","f8","d9","e9","f9","d10","e10","f10"}}; // 将
-  for (int i=0; i<9; i++) {
-    for (int j=0; j<9; j++) {
-      if ((i+1)%3 != (j+1)%3) {
-        printf("(%s, %s)\n", chessPos[0][i], chessPos[1][j]);
-      }
-    }
-  }
-}
+#define HALF_BITS_LENGTH 4
+#define FULLMASK 255
+#define LMASK (FULLMASK << HALF_BITS_LENGTH)
 
 int main () {
-  unsigned char a = 10100000;
-  unsigned char b = 00001101;
-  printf("%c\n", a|b);
-  printf("%c\n", a^b);
-  // printDiffChess();
+  
+  return 0;
 }
