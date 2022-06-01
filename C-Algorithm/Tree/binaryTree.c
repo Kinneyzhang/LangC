@@ -2,7 +2,7 @@
  * 二叉树 - BinaryTree
  * 数结构可以极大的提高搜索的效率
  * 
-**/
+ **/
 
 #include "binaryTree.h"
 
@@ -12,10 +12,6 @@ void insertNode (BtNode** root, COMPARE compare, void* data) {
   node->data = data;
   node->left = NULL;
   node->right = NULL;
-
-  if (root == NULL) {
-    *root = &node;
-  }
   
   BtNode* curr = *root; // 获取根节点
   
@@ -27,28 +23,37 @@ void insertNode (BtNode** root, COMPARE compare, void* data) {
         curr = curr->left;
       } else {
         curr->left = node;
+        break;
       }
     } else {
-      
+      if (curr->right) {
+        curr = curr->right;
+      } else {
+        curr->right = node;
+        break;
+      }
     }
   }
 }
 
+void preOrderTraversal (BtNode* root) {
+  
+}
+
 int compareInt (int* a, int* b) {
-  if (*a < *b) {
-    return -1;
-  }
-  return 1;
+  if (*a < *b) return -1;
+  if (*a = *b) return 0;
+  if (*a > *b) return 1;
 }
 
 
-/* int main () { */
-/*   int a = 3; */
-/*   BtNode* root = (BtNode*)malloc(sizeof(BtNode)); */
-/*   root->data = &a; */
-/*   root->left = NULL; */
-/*   root->right = NULL; */
-
-/*   int data = 5; */
-/*   insertNode(&root, (COMPARE)compareInt, &data); */
-/* } */
+int main () {
+  int a = 3;
+  BtNode* root = (BtNode*)malloc(sizeof(BtNode));
+  root->data = &a;
+  root->left = NULL;
+  root->right = NULL;
+  
+  int data = 5;
+  insertNode(&root, (COMPARE)compareInt, &data);
+}
