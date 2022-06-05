@@ -11,15 +11,13 @@ typedef struct _btree_node {
 } BtNode;
 
 typedef int(*COMPARE)(void*, void*);
+typedef void(*PRINT)(void*);
 
-void insertNode (BtNode** root, COMPARE compare, void* data);
-BtNode* createByPreOrder (void* arr[]);
-BtNode* createByInOrder (void* arr[]);
-BtNode* createByPostOrder (void* arr[]);
-void preOrderTraversal (BtNode* root);
-void inOrderTraversal (BtNode* root);
-void postOrderTraversal (BtNode* root);
-void levelOrderTraversal (BtNode* root);
+void insertTreeNode (BtNode** root, COMPARE compare, void* data);
+void preOrderTraversal (BtNode* root, PRINT print);
+void inOrderTraversal (BtNode* root, PRINT print);
+void postOrderTraversal (BtNode* root, PRINT print);
+void levelOrderTraversal (BtNode* root, PRINT print);
 int treeHeight (BtNode* root);
 
 #endif
