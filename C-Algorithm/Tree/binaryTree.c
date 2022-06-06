@@ -7,13 +7,21 @@
 #include "binaryTree.h"
 #include "../LinkedList/queue.h"
 
-void insertTreeNode (BtNode** root, COMPARE compare, void* data) {
-  // 重要：root中存放的是指向节点指针的指针
+BtNode* initTreeNode (void* data) {
+  // 初始化二叉树节点
+  if (data == NULL) return 0;
   BtNode* node = (BtNode*)malloc(sizeof(BtNode));
   node->data = data;
   node->left = NULL;
   node->right = NULL;
+  // node->isDeleted = false;
+  return node;
+}
 
+void insertTreeNode (BtNode** root, COMPARE compare, void* data) {
+  // 重要：root中存放的是指向节点指针的指针
+  BtNode* node = initTreeNode(data);
+  
   if (*root == NULL) {
     *root = node;
     return;
@@ -24,7 +32,9 @@ void insertTreeNode (BtNode** root, COMPARE compare, void* data) {
   while (1) {
     // 1. 和当前节点比较，如果小，如果有左孩子节点，赋为当前节点；如果没有左孩子节点，插入node
     // 2. 和当前节点比较，如果大，如果有右孩子节点，赋为当前节点；如果没有右孩子节点，插入node
+    
     if (compare(data, curr->data) < 0) {
+      
       if (curr->left != NULL) {
         curr = curr->left;
       } else {
@@ -42,6 +52,21 @@ void insertTreeNode (BtNode** root, COMPARE compare, void* data) {
       }
     }
   }
+}
+
+BtNode* findNodeByData (BtNode* root, COMPARE compare, void* data) {
+  if (root == NULL) {
+    return 0;
+  }
+  
+  while(1) {
+    if (compare(data, root->data) == 0) break;
+    else if (compare(data, root->data) < 0 && root->left != NULL)
+      root = root->left;
+    else if (root->right != NULL)
+      root = root->right;
+  }
+  return root;
 }
 
 void preOrderTraversal (BtNode* root, PRINT print) {
@@ -125,7 +150,11 @@ int compareInt (int* a, int* b) {
 }
 
 void printInt (int* data) {
-  printf("%d ", *data);
+  if (data == NULL) {
+    printf("null ");
+  } else {
+    printf("%d ", *data);
+  }
 }
 
 
@@ -153,5 +182,25 @@ int main () {
   levelOrderTraversal(root, (PRINT)printInt);
   printf("\n");
   printf("tree height: %d", treeHeight(root));
+  printf("\n----------------\n");
+  /* ------------------------------------------------- */
+  int data = 6;
+  printf("current node data: ");
+  BtNode* node = findNodeByData(root, (COMPARE)compareInt, &data);
+  printInt(node->data);
+  printf("\n");
+  printf("left of data: ");
+  if (node->left) {
+    printInt(node->left->data);
+  } else {
+    printf("null");
+  }
+  printf("\n");
+  printf("right of data: ");
+  if (node->right) {
+    printInt(node->right->data); 
+  } else {
+    printf("null");
+  }
   printf("\n");
 }
