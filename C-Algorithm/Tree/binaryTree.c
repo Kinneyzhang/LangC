@@ -101,8 +101,19 @@ void levelOrderTraversal (BtNode* root, PRINT print) {
 }
 
 int treeHeight (BtNode* root) {
-  
-  return 0;
+  if (root == NULL) {
+    return 0;
+  } else {
+    int lHeight = treeHeight(root->left);
+    int rHeight = treeHeight(root->right);
+
+    // 要加深递归的理解
+    
+    if (lHeight > rHeight)
+      return lHeight + 1;
+    else
+      return rHeight + 1;
+  }
 }
 
 // -----------------------------------
@@ -140,5 +151,7 @@ int main () {
   postOrderTraversal(root, (PRINT)printInt);
   printf("\n");
   levelOrderTraversal(root, (PRINT)printInt);
+  printf("\n");
+  printf("tree height: %d", treeHeight(root));
   printf("\n");
 }

@@ -1,0 +1,1 @@
+- `gcc binaryTree.c ../LinkedList/queue.c ../LinkedList/linkedlist.c`
