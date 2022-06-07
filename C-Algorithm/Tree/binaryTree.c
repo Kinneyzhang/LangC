@@ -202,5 +202,4 @@ int main () {
   } else {
     printf("null");
   }
-  printf("\n");
 }
