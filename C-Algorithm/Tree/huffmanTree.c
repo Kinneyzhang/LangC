@@ -46,69 +46,85 @@ int* twoMinWeight (int weightArray[], int size, int minArray[4]) {
   return minArray;
 }
 
-void findMinAndDelete (void* dataArray[], int weightArray[], int size) {
+typedef struct _minWeightData {
+  void* data;
+  int weight;
+  void* rest_data_array[20];
+  int rest_weight_array[20];
+} MinWData;
+
+MinWData* findMinAndDelete (void* dataArray[], int weightArray[], int size) { // MinWData* minWDataS
   /**
    * Find the minimum weight and it's order in array, Then exchange the weight element and the last element in arrays(weight and data). Return the new arrays.
    */
-  void* minWData = dataArray[0];
   int minW = weightArray[0];
+  void* minWData = dataArray[0];
   int minWPos = 0;
   for (int i=1; i<size; i++) {
-    if (weightArray[i] < minW) {
+    int currW = weightArray[i];
+    if (currW < minW) {
       minWPos = i;
-      minWData = dataArray[i];
       minW = currW;
+      minWData = dataArray[i];
     }
   }
   void* lastData = dataArray[size-1];
   int lastW = weightArray[size-1];
   dataArray[size-1] = minWData;
   weightArray[size-1] = minW;
-  dataArray[minPos] = lastData;
-  weightArray[minPos] = lastW;
+  dataArray[minWPos] = lastData;
+  weightArray[minWPos] = lastW;
+  
+  MinWData* minWDataS = (MinWData*)malloc(sizeof(MinWData));
+  minWDataS->data = minWData;
+  minWDataS->weight = minW;
+  minWDataS->rest_data_array[0] = dataArray;
+  minWDataS->rest_weight_array[0] = weightArray;
+
+  return minWDataS;
 }
 
 // Get the last element (has minimum weight) in array and delete it from array.
 
-HftNode* createHuffmanTree (void* dataArray[], int weightArray[], int size, HftNode* root) {
-  /**
-   * 1. when root is null, find the element with minimum weight, delete it from arrays
-   *    and assign it to root.
-   * 2. when root is not null, find the element with minimum weight, delete it from arrays
-   *    and create parent node of the element and root, then assign parent node to root.
-   */
-  int minWeightArray[4];
-  twoMinWeight(weightArray, size, minWeightArray);
-  int minW1 = minWeightArray[0];
-  int minW2 = minWeightArray[1];
-  int k1 = minWeightArray[2];
-  int k2 = minWeightArray[3];
-  void* data1 = dataArray[k1];
-  void* data2 = dataArray[k2];
+/* HftNode* createHuffmanTree (void* dataArray[], int weightArray[], int size, HftNode* root) { */
+/*   /\** */
+/*    * 1. when root is null, find the element with minimum weight, delete it from arrays */
+/*    *    and assign it to root. */
+/*    * 2. when root is not null, find the element with minimum weight, delete it from arrays */
+/*    *    and create parent node of the element and root, then assign parent node to root. */
+/*    *\/ */
+/*   int minWeightArray[4]; */
+/*   twoMinWeight(weightArray, size, minWeightArray); */
+/*   int minW1 = minWeightArray[0]; */
+/*   int minW2 = minWeightArray[1]; */
+/*   int k1 = minWeightArray[2]; */
+/*   int k2 = minWeightArray[3]; */
+/*   void* data1 = dataArray[k1]; */
+/*   void* data2 = dataArray[k2]; */
   
-  // create a new node which is the parent of the two nodes with minimum weight.
+/*   // create a new node which is the parent of the two nodes with minimum weight. */
   
-  HftNode* node = initHuffmanNode(minW1, minWeightSum);
+/*   HftNode* node = initHuffmanNode(minW1, minWeightSum); */
 
-  int minWeightSum = 0;
-  for (int i=0; i<2; i++)
-    minWeightSum += minWeightArray[i];
-  HftNode* node = initHuffmanNode(NULL, minWeightSum);
-  node->left = minWeightArray[0];
-  node->right = minWeightArray[1];
+/*   int minWeightSum = 0; */
+/*   for (int i=0; i<2; i++) */
+/*     minWeightSum += minWeightArray[i]; */
+/*   HftNode* node = initHuffmanNode(NULL, minWeightSum); */
+/*   node->left = minWeightArray[0]; */
+/*   node->right = minWeightArray[1]; */
 
-  // The current parent node is the root.
-  root = node;
+/*   // The current parent node is the root. */
+/*   root = node; */
   
-  // Delete the two weight data in
-}
+/*   // Delete the two weight data in */
+/* } */
 
 int main () {
+  char a = 'A'; char b = 'B'; char c = 'C';
+  char d = 'D'; char e = 'E'; char f = 'F';
+  char g = 'G'; char h = 'H'; char i = 'I';
+  void* dataArray[9] = {&a,&b,&c,&d,&e,&f,&g,&h,&i};
   int weightArray[9] = {5,8,4,2,9,6,3,7,10};
-  int minArray[4];
-  twoMinWeight(weightArray, 9, minArray);
-  for (int i=0; i<4; i++) {
-    printf("%d ", minArray[i]);
-  }
-  printf("\n");
+  /* MinWData* minWDataS; */
+  findMinAndDelete(dataArray, weightArray, 9);
 }
