@@ -22,10 +22,12 @@ typedef struct _minWeightData {
   int* rest_weight_array;
 } MinWData;
 
-MinWData* findMinAndDelete (char dataArray[], int weightArray[], int size) { // MinWData* minWDataS
+MinWData* findMinAndDelete (char dataArray[], int weightArray[], int size) {
+  
   /**
    * Find the minimum weight and it's order in array, Then exchange the weight element and the last element in arrays(weight and data). Return the new arrays.
    */
+  
   int minW = weightArray[0];
   char minWData = dataArray[0];
   int minWPos = 0;
@@ -53,17 +55,18 @@ MinWData* findMinAndDelete (char dataArray[], int weightArray[], int size) { // 
   return minWDataS;
 }
 
-// Get the last element (has minimum weight) in array and delete it from array.
-
-HftNode* createHuffmanTree (void* dataArray[], int weightArray[], int size, HftNode* root) {
+HftNode* createHuffmanTree (void* dataArray[], int weightArray[],
+                            int size, HftNode* root) {
   
   /**
-   * 1. when root is null, find the element with minimum weight, delete it from arrays
-   *    and assign it to root.
-   * 2. when root is not null, find the element with minimum weight, delete it from arrays
-   *    and create parent node of the element and root, then assign parent node to root.
+   * 1. when root is null, find the element with minimum weight,
+   *    delete it from arrays and assign it to root.
+   * 2. when root is not null, find the element with minimum weight, 
+   *    delete it from arrays and create parent node of the element 
+   *    and root, then assign parent node to root.
    */
 
+  
   
 }
 
