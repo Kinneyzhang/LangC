@@ -153,6 +153,13 @@ int main () {
   // the init data is 1;
   HftNode *root = initHuffmanNode(1, 0);
   createHuffmanTree(dataArray, weightArray, 9, root);
-  preOrderTraversal(root); // 有问题，为什么不能够遍历到底？？
+  preOrderTraversal(root);
   printf("\n");
+
+
+  /** FIXME
+   * 1. 为什么不能够遍历到底？
+   * 2. HftNode root: 这种定义为什么不行，之前的代码为什么可以?
+   */
+  
 }
