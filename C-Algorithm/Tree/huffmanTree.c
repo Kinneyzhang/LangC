@@ -6,7 +6,7 @@
 
 #include "huffmanTree.h"
 
-HftNode* initHuffmanNode (void* data, int weight) {
+HftNode* initHuffmanNode (char data, int weight) {
   HftNode* node = (HftNode*)malloc(sizeof(HftNode));
   node->data = data;
   node->weight = weight;
@@ -55,7 +55,7 @@ MinWData* findMinAndDelete (char dataArray[], int weightArray[], int size) {
   return minWDataS;
 }
 
-HftNode* createHuffmanTree (void* dataArray[], int weightArray[],
+HftNode* createHuffmanTree (char dataArray[], int weightArray[],
                             int size, HftNode* root) {
   
   /**
@@ -65,33 +65,94 @@ HftNode* createHuffmanTree (void* dataArray[], int weightArray[],
    *    delete it from arrays and create parent node of the element 
    *    and root, then assign parent node to root.
    */
+  
+  while (1) {
+    MinWData* minWDataS = findMinAndDelete(dataArray, weightArray, size);
+    int minW = minWDataS->weight;
+    char minD = minWDataS->data;
+    char* restDArray = minWDataS->rest_data_array;
+    int* restWArray = minWDataS->rest_weight_array;
 
-  
-  
+    // printf("min weight: %d\n", minW);
+    
+    if (root->data == 1) {
+      root->data = minD;
+      root->weight = minW;
+      root->left = NULL;
+      root->right = NULL;
+      dataArray = restDArray;
+      weightArray = restWArray;
+      // printf("root weight: %d\n", root->weight);
+      printf("- root data: %c\n", root->data);
+    } else {
+      // Create the node with minimum weight in current array.
+      HftNode* mNode = (HftNode*)malloc(sizeof(HftNode));
+      mNode->data = minD;
+      mNode->weight = minW;
+      mNode->left = NULL;
+      mNode->right = NULL;
+      
+      // Create the parent node and assign it as a root.
+      HftNode* pNode = (HftNode*)malloc(sizeof(HftNode));
+      pNode->data = 0;
+      pNode->weight = root->weight + minW;
+      pNode->left = root;
+      pNode->right = mNode;
+      root = pNode;
+      // printf("root weight: %d\n", root->weight);
+      printf("root data: %c\n", root->right->data);
+    }
+    
+    dataArray = restDArray;
+    weightArray = weightArray;
+    size -= 1;
+    if (size == 0) break;
+  }
+  /* printf("root weight: %d\n", root->weight); */
+  return root;
 }
 
+void preOrderTraversal (HftNode* root) {
+  if (root == NULL) {
+    return;
+  } else {
+    printf("%d ", root->weight);
+    preOrderTraversal(root->left);
+    preOrderTraversal(root->right);
+  }
+}
+
+void inOrderTraversal (HftNode* root) {
+  if (root == NULL) {
+    return;
+  } else {
+    inOrderTraversal(root->left);
+    printf("%c ", root->data);
+    inOrderTraversal(root->right);
+  }
+}
+
+void postOrderTraversal (HftNode* root) {
+  if (root == NULL) {
+    return;
+  } else {
+    postOrderTraversal(root->left);
+    postOrderTraversal(root->right);
+    printf("%c ", root->data);
+  }
+}
 
 int main () {
   char a = 'A'; char b = 'B'; char c = 'C';
   char d = 'D'; char e = 'E'; char f = 'F';
   char g = 'G'; char h = 'H'; char i = 'I';
-  char dataArray[9] = {a,b,c,d,e,f,g,h,i};
+  
+  char dataArray[9] =  {a,b,c,d,e,f,g,h,i};
   int weightArray[9] = {5,8,4,2,9,6,3,7,10};
-  MinWData* S = findMinAndDelete(dataArray, weightArray, 9);
-  printf("weight: %d, data: %c\n", S->weight, S->data);
-  
-  int* wArray = S->rest_weight_array;
-  char* dArray = S->rest_data_array;
 
-  printf("rest weight array: ");
-  for (int i=0; i<8; i++) {
-    printf("%d ", wArray[i]);
-  }
-  printf("\n");
-  
-  printf("rest data array: ");
-  for (int i=0; i<8; i++) {
-    printf("%c ", dArray[i]);
-  }
+  // the init data is 1;
+  HftNode *root = initHuffmanNode(1, 0);
+  createHuffmanTree(dataArray, weightArray, 9, root);
+  preOrderTraversal(root); // 有问题，为什么不能够遍历到底？？
   printf("\n");
 }

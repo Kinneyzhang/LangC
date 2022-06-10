@@ -3,12 +3,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "binaryTree.h"
+/* #include "binaryTree.h" */
 
 // http://data.biancheng.net/view/33.html
 
 typedef struct _huffman_tree_node {
-  void* data;
+  char data;
   int weight;
   struct _huffman_tree_node *left;
   struct _huffman_tree_node *right;
