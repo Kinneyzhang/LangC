@@ -14,4 +14,17 @@ typedef struct _huffman_tree_node {
   struct _huffman_tree_node *right;
 } HftNode;
 
+typedef struct _minWeightData {
+  char data;
+  int weight;
+  char* rest_data_array;
+  int* rest_weight_array;
+} MinWData;
+
+
+HftNode* initHuffmanNode (char data, int weight);
+MinWData* findMinAndDelete (char dataArray[], int weightArray[], int size);
+void createHuffmanTree (char dataArray[], int weightArray[], int size, HftNode* root);
+void preOrderHuffmanTree (HftNode* root);
+
 #endif

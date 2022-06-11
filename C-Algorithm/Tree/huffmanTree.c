@@ -15,17 +15,11 @@ HftNode* initHuffmanNode (char data, int weight) {
   return node;
 }
 
-typedef struct _minWeightData {
-  char data;
-  int weight;
-  char* rest_data_array;
-  int* rest_weight_array;
-} MinWData;
-
 MinWData* findMinAndDelete (char dataArray[], int weightArray[], int size) {
   
   /**
-   * Find the minimum weight and it's order in array, Then exchange the weight element and the last element in arrays(weight and data). Return the new arrays.
+   * Find the minimum weight and it's order in array, Then exchange the weight
+   * element and the last element in arrays(weight and data). Return the new arrays.
    */
   
   int minW = weightArray[0];
@@ -55,16 +49,18 @@ MinWData* findMinAndDelete (char dataArray[], int weightArray[], int size) {
   return minWDataS;
 }
 
-HftNode* createHuffmanTree (char dataArray[], int weightArray[],
-                            int size, HftNode* root) {
+void createHuffmanTree (char dataArray[], int weightArray[],
+                        int size, HftNode* root) {
   
   /**
-   * 1. when root is null, find the element with minimum weight,
-   *    delete it from arrays and assign it to root.
-   * 2. when root is not null, find the element with minimum weight, 
-   *    delete it from arrays and create parent node of the element 
-   *    and root, then assign parent node to root.
+   * 1. find the element with minimum weight and create a node.
+   * 2. when curr is null, assign the node to curr.
+   * 3. when curr is not null, create parent node of the node 
+   *    and curr, then assign parent node to curr.
+   * 4. set the new dataArray, weightArray and size, then loop.
    */
+  
+  HftNode* curr = NULL; // curr is a pointer points to the root of huffman tree.
   
   while (1) {
     MinWData* minWDataS = findMinAndDelete(dataArray, weightArray, size);
@@ -73,74 +69,74 @@ HftNode* createHuffmanTree (char dataArray[], int weightArray[],
     char* restDArray = minWDataS->rest_data_array;
     int* restWArray = minWDataS->rest_weight_array;
 
-    // printf("min weight: %d\n", minW);
+    // Create the node with minimum weight in current array.
+    HftNode* mNode = (HftNode*)malloc(sizeof(HftNode));
+    mNode->data = minD;
+    mNode->weight = minW;
+    mNode->left = NULL;
+    mNode->right = NULL;
     
-    if (root->data == 1) {
-      root->data = minD;
-      root->weight = minW;
-      root->left = NULL;
-      root->right = NULL;
-      dataArray = restDArray;
-      weightArray = restWArray;
-      // printf("root weight: %d\n", root->weight);
-      printf("- root data: %c\n", root->data);
+    if (curr == NULL) {
+      curr = mNode;
+      /* printf("- curr w:%d d:%c\n", curr->weight, curr->data); */
     } else {
-      // Create the node with minimum weight in current array.
-      HftNode* mNode = (HftNode*)malloc(sizeof(HftNode));
-      mNode->data = minD;
-      mNode->weight = minW;
-      mNode->left = NULL;
-      mNode->right = NULL;
-      
       // Create the parent node and assign it as a root.
       HftNode* pNode = (HftNode*)malloc(sizeof(HftNode));
       pNode->data = 0;
-      pNode->weight = root->weight + minW;
-      pNode->left = root;
+      pNode->weight = curr->weight + minW;
+      pNode->left = curr;
       pNode->right = mNode;
-      root = pNode;
-      // printf("root weight: %d\n", root->weight);
-      printf("root data: %c\n", root->right->data);
+      
+      /**
+       * 1. 函数参数传递指针，本质上就是值传递，只不过传的是一个指针变量
+       * 2. 函数内部修改了指针的值（修改了指针的指向），如果不返回自然不会改变原来的指针指向。
+       * 3. 但是解引后再赋值就不一样了，接引可以访问指针指向的节点内存，可以将节点赋值为其他的节点。此时，无需返回值。
+       */
+      
+      curr = pNode;
+      
+      /* printf("curr  w: %d d: %c\n", curr->weight, curr->data); */
+      /* printf("left  w: %d d: %c\n", curr->left->weight, curr->left->data); */
+      /* printf("right w: %d d: %c\n", curr->right->weight, curr->right->data); */
     }
     
     dataArray = restDArray;
-    weightArray = weightArray;
+    weightArray = restWArray;
     size -= 1;
     if (size == 0) break;
   }
-  /* printf("root weight: %d\n", root->weight); */
-  return root;
+  *root = *curr;
 }
 
-void preOrderTraversal (HftNode* root) {
+void preOrderHuffmanTree (HftNode* root) {
   if (root == NULL) {
     return;
   } else {
-    printf("%d ", root->weight);
-    preOrderTraversal(root->left);
-    preOrderTraversal(root->right);
+    printf("w:%d d:%c\n", root->weight, root->data);
+    preOrderHuffmanTree(root->left);
+    preOrderHuffmanTree(root->right);
   }
 }
 
-void inOrderTraversal (HftNode* root) {
-  if (root == NULL) {
-    return;
-  } else {
-    inOrderTraversal(root->left);
-    printf("%c ", root->data);
-    inOrderTraversal(root->right);
-  }
-}
+/* void inOrderTraversal (HftNode* root) { */
+/*   if (root == NULL) { */
+/*     return; */
+/*   } else { */
+/*     inOrderTraversal(root->left); */
+/*     printf("w:%d d:%c\n", root->weight, root->data); */
+/*     inOrderTraversal(root->right); */
+/*   } */
+/* } */
 
-void postOrderTraversal (HftNode* root) {
-  if (root == NULL) {
-    return;
-  } else {
-    postOrderTraversal(root->left);
-    postOrderTraversal(root->right);
-    printf("%c ", root->data);
-  }
-}
+/* void postOrderTraversal (HftNode* root) { */
+/*   if (root == NULL) { */
+/*     return; */
+/*   } else { */
+/*     postOrderTraversal(root->left); */
+/*     postOrderTraversal(root->right); */
+/*     printf("w:%d d:%c\n", root->weight, root->data); */
+/*   } */
+/* } */
 
 int main () {
   char a = 'A'; char b = 'B'; char c = 'C';
@@ -149,17 +145,9 @@ int main () {
   
   char dataArray[9] =  {a,b,c,d,e,f,g,h,i};
   int weightArray[9] = {5,8,4,2,9,6,3,7,10};
-
-  // the init data is 1;
-  HftNode *root = initHuffmanNode(1, 0);
-  createHuffmanTree(dataArray, weightArray, 9, root);
-  preOrderTraversal(root);
-  printf("\n");
-
-
-  /** FIXME
-   * 1. 为什么不能够遍历到底？
-   * 2. HftNode root: 这种定义为什么不行，之前的代码为什么可以?
-   */
   
+  HftNode *root = initHuffmanNode(0, 0);
+  createHuffmanTree(dataArray, weightArray, 9, root);
+  /* printf("w:%d d:%c\n", root->weight, root->data); */
+  preOrderHuffmanTree(root);
 }
