@@ -1,19 +1,17 @@
-/**
- * 插入排序
+/*
+ * 冒泡排序
  */
 
 #include <stdlib.h>
 #include <stdio.h>
 
-void insertSort (int a[], int size) {
-  for (int i=1; i<size; i++) {
-    int t = a[i];
-    for (int j=i-1; j>=0; j--) {
-      if (t > a[j])
-        break;
-      else {
-        a[j+1] = a[j];
-        a[j] = t;
+void bubbleSort (int a[], int size) {
+  for (int i=0; i<size; i++) {
+    for (int j=size; j>i; j--) {
+      if (a[j] < a[j-1]) {
+        int t = a[j];
+        a[j] = a[j-1];
+        a[j-1] = t;
       }
     }
   }
@@ -30,7 +28,7 @@ int main () {
   
   printf("\n");
 
-  insertSort(a, size);
+  bubbleSort(a, size);
   printf("After sort:  ");
   for (int i=0; i<size; i++) {
     printf("%d ", a[i]);
