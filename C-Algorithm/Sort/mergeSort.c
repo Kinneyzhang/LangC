@@ -22,6 +22,7 @@
 
 void merge (int a[], int lo, int mid, int hi) {
   // two sorted array: a[lo]~a[mid], a[mid+1]~a[hi]
+  if (lo >= hi) return;
   int i = lo; int j = mid+1; int size = hi-lo+1;
   int aux[size];
   for (int k=lo; k<=hi; k++)
@@ -36,13 +37,12 @@ void merge (int a[], int lo, int mid, int hi) {
 
 void mergeSort (int a[], int lo, int hi) {
   if (lo >= hi) return;
-  printf("lo:%d, hl:%d, ", lo, hi);
+  printf("lo:%d, mid:%d, hl:%d\n", lo, (lo + hi) / 2, hi);
   int mid = (lo + hi) / 2;
-  printf("mid:%d\n", mid);
   mergeSort(a, lo, mid);
   mergeSort(a, mid+1, hi);
   
-  printf("merge: %d~%d, %d~%d\n", lo, mid, mid+1, hi);
+  printf("merge: %d %d %d\n", lo, mid, hi);
   
   printf("before: ");
   for (int i=lo; i<=hi; i++) {
@@ -56,17 +56,23 @@ void mergeSort (int a[], int lo, int hi) {
   for (int i=lo; i<=hi; i++) {
     printf("a[%d]:%d ", i, a[i]);
   }
-  printf("\n");
-  printf("-----------\n");
+  printf("\na: ");
   for (int i=0; i<=10; i++) {
     printf("%d ", a[i]);
   }
-  printf("\n");
+  printf("\n-----------------\n");
 }
   
 int main () {
   // int a[11] = {7,1,4,8,9,0,3,10,2,6,5};
   int a[11] = {7,1,4,8,9,0,10,3,2,6,5};
+
+  printf("\na: ");
+  for (int i=0; i<=10; i++) {
+    printf("%d ", a[i]);
+  }
+  printf("\n-----------------\n");
+
   mergeSort(a, 0, 10);
   printf("222");
   for (int i=0; i<=10; i++) {
