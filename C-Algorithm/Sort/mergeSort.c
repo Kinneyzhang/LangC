@@ -34,8 +34,6 @@ void merge (int a[], int lo, int mid, int hi) {
   }
 }
 
-
-
 void mergeSort (int a[], int lo, int hi) {
   if (lo >= hi) return;
   printf("lo:%d, hl:%d, ", lo, hi);
