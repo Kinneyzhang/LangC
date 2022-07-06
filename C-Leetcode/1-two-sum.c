@@ -5,17 +5,31 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void twoSum(int* nums, int numsSize, int target, int* returnSize){
-  
+void twoSum(int* nums, int size, int target, int* returnIndex) {
+  int find = 0;
+  for (int i=0; i<size-1; i++) {
+    if (nums[i] >= target)
+      continue;
+    else {
+      for (int j=i+1; j<size; j++) {
+        if (nums[j] == target - nums[i]) {
+          returnIndex[0] = i;
+          returnIndex[1] = j;
+          find = 1;
+          break;
+        }
+      }
+    }
+    if (find) break;
+  }
 }
 
 int main() {
-  int nums[4] = {6,2,7,5,15,4};
-  int numsSize = 6;
+  int size = 6;
+  int nums[6] = {6,2,7,5,15,4};
   int target = 9;
-  int *returnSize = (int*)malloc(sizeof(int));
-  
-  twoSum(nums, numsSize, target, returnSize);
-  printf("%d\n", *returnSize);
-  printf("%d\n", *(returnSize+1));
+  int returnIndex[2];
+  twoSum(nums, size, target, returnIndex);
+  printf("nums[%d]: %d\n", returnIndex[0], nums[*returnIndex]);
+  printf("nums[%d]: %d\n", returnIndex[1], nums[*(returnIndex+1)]);
 }
