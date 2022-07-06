@@ -67,10 +67,7 @@ int main () {
   printf("\n-----------------\n");
 
   mergeSort(a, size);
-
-  printf("\n--------aux addr before free: %p--------\n", *(aux+1));
   free(aux);
-  printf("\n--------aux addr after  free: %p--------\n", *(aux+1));
   
   for (int i=0; i<=size-1; i++) {
     printf("%d ", a[i]);
