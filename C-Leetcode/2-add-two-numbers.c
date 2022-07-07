@@ -1,5 +1,5 @@
 /**
- * 两数相加
+ * 两数相加：链表实现
  */
 
 #include <stdlib.h>
@@ -44,48 +44,49 @@ int countList (ListNode* node) {
 ListNode* addTwoNumbers (ListNode* l1, ListNode* l2) {
   int s1 = countList(l1);
   int s2 = countList(l2);
-  int sm; // the smaller one of s1 and s2;
+  int maxs;
   int num;
   ListNode* smallList;
+  
   if (s1<s2) {
     num = s2 - s1;
-    sm = s1;
+    maxs = s2;
     smallList = l1;
-  }
-  else {
+  } else {
     num = s1 - s2;
-    sm = s2;
+    maxs = s1;
     smallList = l2;
   }
-  // 高位补0
-  while (smallList) {
+  
+  // 给位数小的数字，高位补0
+  while (smallList->next) {
     smallList = smallList->next;
   }
   for (int i=0; i<num; i++) {
     ListNode* node = malloc(sizeof(ListNode));
     node->data = 0;
-    node->next = NULL;
     smallList->next = node;
-    smallList = node;
+    smallList = node; 
   }
   smallList->next = NULL;
   
   int carry = 0; // 进位
   int value = 0;
 
-  ListNode* root = malloc(sizeof(ListNode)); // virtual root
+  // virtual root, real root is: root->next
+  ListNode* root = malloc(sizeof(ListNode));
   root->data = 0;
   ListNode* curr = root;
   
-  for (int i=0; i<sm; i++) {
+  for (int i=0; i<maxs; i++) {
     ListNode* node = malloc(sizeof(ListNode));
     int a1 = l1->data;
     int a2 = l2->data;
     
-    value = (a1 + a2) % 10;
-    node->data = value + carry;
+    value = (a1 + a2 + carry) % 10;
+    node->data = value;
     
-    carry = (a1 + a2) / 10; // 下一位的进位
+    carry = (a1 + a2 + carry) / 10; // 下一位的进位
     curr->next = node;
     curr = node;
     
@@ -93,21 +94,31 @@ ListNode* addTwoNumbers (ListNode* l1, ListNode* l2) {
     l2 = l2->next;
   }
   
-  curr->next = NULL;
+  // 当最后一位有进位时
+  if (carry != 0) {
+    ListNode* node = malloc(sizeof(ListNode));
+    node->data = carry;
+    node->next = NULL;
+    curr->next = node;
+  }
+  
   return root->next;
 }
 
 int main () {
-  /* ListNode* n1 = malloc(sizeof(ListNode)); */
-  /* ListNode* n2 = malloc(sizeof(ListNode)); */
-  int a1[3] = {2,4,3};   // 342
-  int a2[4] = {5,6,4,1}; // 1465
+  /* 842 + 999465 = 1000307 */
+  int a1[3] = {2,4,8};
+  int a2[6] = {5,6,4,9,9,9};
   ListNode* l1  = buildList (a1, 3);
-  ListNode* l2  = buildList (a2, 4);
+  ListNode* l2  = buildList (a2, 6);
+  
+  printf("l1: ");
   printList(l1);
-  printf("count1: %d\n", countList(l1));
+  
+  printf("l2: ");
   printList(l2);
-  printf("count2: %d\n", countList(l2));
+  
   ListNode* ls = addTwoNumbers(l1, l2);
+  printf("ls: ");
   printList(ls);
 }
