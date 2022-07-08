@@ -32,66 +32,31 @@ void printList (ListNode* node) {
   printf("\n");
 }
 
-int countList (ListNode* node) {
-  int count = 0;
-  while (node) {
-    count++;
-    node = node->next;
-  }
-  return count;
-}
-
-ListNode* addTwoNumbers (ListNode* l1, ListNode* l2) {
-  int s1 = countList(l1);
-  int s2 = countList(l2);
-  int maxs;
-  int num;
-  ListNode* smallList;
-  
-  if (s1<s2) {
-    num = s2 - s1;
-    maxs = s2;
-    smallList = l1;
-  } else {
-    num = s1 - s2;
-    maxs = s1;
-    smallList = l2;
-  }
-  
-  // 给位数小的数字，高位补0
-  while (smallList->next) {
-    smallList = smallList->next;
-  }
-  for (int i=0; i<num; i++) {
-    ListNode* node = malloc(sizeof(ListNode));
-    node->data = 0;
-    smallList->next = node;
-    smallList = node; 
-  }
-  smallList->next = NULL;
-  
+ListNode* addTwoNumbers (ListNode* l1, ListNode* l2) {  
   int carry = 0; // 进位
   int value = 0;
 
-  // virtual root, real root is: root->next
-  ListNode* root = malloc(sizeof(ListNode));
-  root->data = 0;
-  ListNode* curr = root;
-  
-  for (int i=0; i<maxs; i++) {
+  // root is: pre->next
+  ListNode* pre = malloc(sizeof(ListNode));
+  ListNode* curr = pre;
+
+  int v1 = 0;
+  int v2 = 0;
+  while (l1 != NULL || l2 != NULL) {   // while代替for更合适，避免了多余的大小计算
+    if (l1 == NULL) v1 = 0;
+    else v1 = l1->data;
+    if (l2 == NULL) v2 = 0;
+    else v2 = l2->data;
+    
     ListNode* node = malloc(sizeof(ListNode));
-    int a1 = l1->data;
-    int a2 = l2->data;
-    
-    value = (a1 + a2 + carry) % 10;
+    value = (v1 + v2 + carry) % 10;
     node->data = value;
-    
-    carry = (a1 + a2 + carry) / 10; // 下一位的进位
+    carry = (v1 + v2 + carry) / 10; // 下一位的进位
     curr->next = node;
     curr = node;
-    
-    l1 = l1->next;
-    l2 = l2->next;
+
+    if (l1 != NULL) l1 = l1->next;
+    if (l2 != NULL) l2 = l2->next;
   }
   
   // 当最后一位有进位时
@@ -102,7 +67,7 @@ ListNode* addTwoNumbers (ListNode* l1, ListNode* l2) {
     curr->next = node;
   }
   
-  return root->next;
+  return pre->next;
 }
 
 int main () {
