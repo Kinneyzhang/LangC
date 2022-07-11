@@ -41,7 +41,7 @@ ListNode* addTwoNumbers (ListNode* l1, ListNode* l2) {
   ListNode* curr = pre;
 
   int v1 = 0;
-  int v2 = 0;
+1  int v2 = 0;
   while (l1 != NULL || l2 != NULL) {   // while代替for更合适，避免了多余的大小计算
     if (l1 == NULL) v1 = 0;
     else v1 = l1->data;
